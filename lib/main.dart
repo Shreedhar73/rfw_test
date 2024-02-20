@@ -12,7 +12,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rfw/rfw.dart';
 
 const String urlPrefix =
-    'https://raw.githubusercontent.com/flutter/packages/main/packages/rfw/example/remote/remote_widget_libraries';
+    'https://raw.githubusercontent.com/Shreedhar73/rfw_test/main/remote_widgets/text_data.rfw';
+// https://github.com/Shreedhar73/rfw_test/blob/main/remote_widgets/counter_app.rfwtxt
 
 void main() {
   runApp(const MaterialApp(home: Example()));
@@ -50,11 +51,11 @@ class _ExampleState extends State<Example> {
   Future<void> _updateWidgets() async {
     final Directory home = await getApplicationSupportDirectory();
     final File settingsFile = File(path.join(home.path, 'settings.txt'));
-    String nextFile = 'counter_app1.rfw';
+    String nextFile = '';
     if (settingsFile.existsSync()) {
       final String settings = await settingsFile.readAsString();
       if (settings == nextFile) {
-        nextFile = 'counter_app2.rfw';
+        nextFile = '';
       }
     }
     final File currentFile = File(path.join(home.path, 'current.rfw'));
@@ -70,9 +71,9 @@ class _ExampleState extends State<Example> {
             FlutterErrorDetails(exception: e, stack: stack));
       }
     }
-    print('Fetching: $urlPrefix/$nextFile'); // ignore: avoid_print
+    print('Fetching: $urlPrefix$nextFile'); // ignore: avoid_print
     final HttpClientResponse client =
-        await (await HttpClient().getUrl(Uri.parse('$urlPrefix/$nextFile')))
+        await (await HttpClient().getUrl(Uri.parse('$urlPrefix$nextFile')))
             .close();
     await currentFile
         .writeAsBytes(await client.expand((List<int> chunk) => chunk).toList());
