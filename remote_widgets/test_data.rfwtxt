@@ -8,21 +8,43 @@ widget Counter = Scaffold(
       mainAxisAlignment: "center",
       crossAxisAlignment: "center",
       children: [
-       Text(text: "heeeelp",)
+       Text(text: "heeeelp",),
+       ContainerWidget(),
       ],
     ),
-  ),
-  bottomNavigationBar: Container(
-    color: 0xFF002211,
-    height: 10,
-    width: 300,
-    child: Center(
-        child: Text(text: ["This, is a bottom nav ", ], textDirection: "ltr"),
-      ),
   ),
   floatingActionButton: FloatingActionButton(
     onPressed: event "increment" { },
     tooltip: "Increment",
     child: Icon(icon: 0xE047, fontFamily: "MaterialIcons"),
+  ),
+);
+
+widget ContainerWidget = Container(
+  height: 80.0,
+  width: 50.0,
+  margin: [18.0],
+  padding: [20.0, 12.0],
+  decoration: {
+    type: 'shape',
+    gradient: {
+      type: "linear",
+      begin: { x: 0.0, y: -0.5 },
+      end: { x: 0.05, y: 1.0 },
+      colors: [ 0xFFFFFFFF, 0xFFDDDDDD ],
+      stops: [ 0.0, 1.0 ],
+      tileMode: "mirror",
+    },
+    shape: {
+      type: "stadium",
+      borderRadius: [ { x: 40.0 } ],
+      side: { color: 0xFFCCCCCC, },
+    }
+  },
+  child: SizedBoxExpand(
+    child: FittedBox(
+      alignment: { x: 1.0, y: 0.0, },
+      child: Text(text: "Container text", style: { color: 0xFF000000 }),
+    ),
   ),
 );
