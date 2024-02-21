@@ -31,13 +31,13 @@ class _ExampleState extends State<Example> {
   @override
   void initState() {
     super.initState();
-    _runtime.update(localName, _createLocalWidgets());
-    _runtime.update(remoteName, parseLibraryFile('''
-      import local;
-      widget root = GreenBox(
-        child: Hello(name: "World"),
-      );
-    '''));
+    // _runtime.update(localName, _createLocalWidgets());
+    // _runtime.update(remoteName, parseLibraryFile('''
+    //   import local;
+    //   widget root = GreenBox(
+    //     child: Hello(name: "World"),
+    //   );
+    // '''));
     _runtime.update(
         const LibraryName(<String>['core', 'widgets']), createCoreWidgets());
     _runtime.update(const LibraryName(<String>['core', 'material']),
@@ -49,24 +49,24 @@ class _ExampleState extends State<Example> {
   static const LibraryName localName = LibraryName(<String>['local']);
   static const LibraryName remoteName = LibraryName(<String>['remote']);
 
-  static WidgetLibrary _createLocalWidgets() {
-    return LocalWidgetLibrary(<String, LocalWidgetBuilder>{
-      'GreenBox': (BuildContext context, DataSource source) {
-        return ColoredBox(
-          color: const Color(0xFF002211),
-          child: source.child(<Object>['child']),
-        );
-      },
-      'Hello': (BuildContext context, DataSource source) {
-        return Center(
-          child: Text(
-            'Hello, ${source.v<String>(<Object>["name"])}!',
-            textDirection: TextDirection.ltr,
-          ),
-        );
-      },
-    });
-  }
+  // static WidgetLibrary _createLocalWidgets() {
+  //   return LocalWidgetLibrary(<String, LocalWidgetBuilder>{
+  //     'GreenBox': (BuildContext context, DataSource source) {
+  //       return ColoredBox(
+  //         color: const Color(0xFF002211),
+  //         child: source.child(<Object>['child']),
+  //       );
+  //     },
+  //     'Hello': (BuildContext context, DataSource source) {
+  //       return Center(
+  //         child: Text(
+  //           'Hello, ${source.v<String>(<Object>["name"])}!',
+  //           textDirection: TextDirection.ltr,
+  //         ),
+  //       );
+  //     },
+  //   });
+  // }
 
   void _updateData() {
     _data.update('counter', _counter.toString());
