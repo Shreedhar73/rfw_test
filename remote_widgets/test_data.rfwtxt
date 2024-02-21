@@ -4,6 +4,6 @@ import core.material;
 widget Counter = Scaffold(
   appBar: AppBar(title: Text(text: "Test APplication")),
   body: Center(
-    child: Text(text : 'Hello World')
+    child: Text(text : "Hello World")
   ),
 );
