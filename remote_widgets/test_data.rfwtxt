@@ -11,20 +11,25 @@ widget Counter = Scaffold(
       mainAxisAlignment: "center",
       crossAxisAlignment: "center",
       children: [
-      Container(
-        height : 80,
-        width: 300,
-        color: 0xFF66AACC,
-        child : Center(
-          child: Text(text: 'Bodyyy',style :{
-            fontSize : 12,
-            color : 0xFF000000,
-          }),
+        Container(
+          height : 80,
+          width: 300,
+          color: 0xFF66AACC,
+          child : Center(
+            child: Text(text: 'Bodyyy',style :{
+              fontSize : 12,
+              color : 0xFF000000,
+            }),
+          ),
         ),
-      ),
        Text(text: "Hellow World",),
        Text(text: data.counter),
        ContainerWidget(data: data.counter),
+       GestureDetector(
+        onTap: event 'showToast' {},
+        child : Text(text:'Show Toast'),
+       ),
+
       ],
     ),
   ),
