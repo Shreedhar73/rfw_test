@@ -9,7 +9,8 @@ widget Counter = Scaffold(
       crossAxisAlignment: "center",
       children: [
        Text(text: "heeeelp",),
-       ContainerWidget(),
+       Text(text: data.counter),
+       ContainerWidget(data: data.counter),
       ],
     ),
   ),
@@ -40,9 +41,7 @@ widget ContainerWidget = Container(
       side: { color: 0xFFCCCCCC, },
     }
   },
-  child: SizedBoxExpand(
-    child: Text(text: "Container text", style: { color: 0xFF000000 }),
-  ),
+  child:  Text(text: args.data, style: { color: 0xFF000000 }),
 );
 
 
