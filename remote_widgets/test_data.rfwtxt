@@ -12,7 +12,6 @@ widget Counter = Scaffold(
       ],
     ),
   ),
-
   floatingActionButton: FloatingActionButton(
     onPressed: event "increment" { },
     tooltip: "Increment",
