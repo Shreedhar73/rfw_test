@@ -12,6 +12,13 @@ widget Counter = Scaffold(
       ],
     ),
   ),
+  bottomNavigationBar: Container(
+    color: 0xFF002211,
+    height: 10.0,
+    child: Center(
+        child: Text(text: ["This, is a bottom nav ", ], textDirection: "ltr"),
+      ),
+  ),
   floatingActionButton: FloatingActionButton(
     onPressed: event "increment" { },
     tooltip: "Increment",
