@@ -2,7 +2,7 @@ import core.widgets;
 import core.material;
 
 widget Counter = Scaffold(
-  appBar: AppBar(title: Text(text: "Test APplication")),
+  appBar: AppBar(title: Text(text: "Test APplication", color: 0xFFFFFFFF)),
   body: Center(
     child: Column(
       mainAxisAlignment: "center",
