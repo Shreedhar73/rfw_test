@@ -41,10 +41,7 @@ widget ContainerWidget = Container(
     }
   },
   child: SizedBoxExpand(
-    child: FittedBox(
-      alignment: { x: 1.0, y: 0.0, },
-      child: Text(text: "Container text", style: { color: 0xFF000000 }),
-    ),
+    child: Text(text: "Container text", style: { color: 0xFF000000 }),
   ),
 );
 
