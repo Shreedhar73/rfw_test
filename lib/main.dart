@@ -115,6 +115,12 @@ class _ExampleState extends State<Example> {
                   if (name == 'increment') {
                     _updateData();
                     _counter += 1;
+                  } else if (name == 'showToast') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Toast Shown'),
+                      ),
+                    );
                   }
                 },
               );
