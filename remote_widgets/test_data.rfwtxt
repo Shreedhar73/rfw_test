@@ -49,8 +49,5 @@ widget ContainerWidget = Container(
   ),
 );
 
-widget root = GreenBox(
-  child: Hello(name: "Shreedhar"),
-);
 
 
