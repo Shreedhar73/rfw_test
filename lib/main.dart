@@ -2,11 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:rfw/formats.dart';
 // import 'package:path/path.dart' as path;
 // import 'package:path_provider/path_provider.dart';
 import 'package:rfw/rfw.dart';
 
-const String urlPrefix =
+const String url =
     'https://raw.githubusercontent.com/Shreedhar73/rfw_test/main/remote_widgets/text_data.rfw';
 
 void main() {
@@ -30,6 +31,13 @@ class _ExampleState extends State<Example> {
   @override
   void initState() {
     super.initState();
+    _runtime.update(localName, _createLocalWidgets());
+    _runtime.update(remoteName, parseLibraryFile('''
+      import local;
+      widget root = GreenBox(
+        child: Hello(name: "World"),
+      );
+    '''));
     _runtime.update(
         const LibraryName(<String>['core', 'widgets']), createCoreWidgets());
     _runtime.update(const LibraryName(<String>['core', 'material']),
@@ -38,47 +46,44 @@ class _ExampleState extends State<Example> {
     _updateWidgets();
   }
 
+  static const LibraryName localName = LibraryName(<String>['local']);
+  static const LibraryName remoteName = LibraryName(<String>['remote']);
+
+  static WidgetLibrary _createLocalWidgets() {
+    return LocalWidgetLibrary(<String, LocalWidgetBuilder>{
+      'GreenBox': (BuildContext context, DataSource source) {
+        return ColoredBox(
+          color: const Color(0xFF002211),
+          child: source.child(<Object>['child']),
+        );
+      },
+      'Hello': (BuildContext context, DataSource source) {
+        return Center(
+          child: Text(
+            'Hello, ${source.v<String>(<Object>["name"])}!',
+            textDirection: TextDirection.ltr,
+          ),
+        );
+      },
+    });
+  }
+
   void _updateData() {
     _data.update('counter', _counter.toString());
   }
 
   Future<void> _updateWidgets() async {
-    // final Directory home = await getApplicationSupportDirectory();
-    // final File settingsFile = File(path.join(home.path, 'settings.txt'));
-    // String nextFile = '';
-    // if (settingsFile.existsSync()) {
-    //   final String settings = await settingsFile.readAsString();
-    //   if (settings == nextFile) {
-    //     nextFile = '';
-    //   }
-    // }
-    // final File currentFile = File(path.join(home.path, 'current.rfw'));
-    // if (currentFile.existsSync()) {
-
-    // }
     try {
       await readRemoteFile();
-      // _runtime.update(const LibraryName(<String>['main']),
-      //     decodeLibraryBlob(await currentFile.readAsBytes()));
-      // setState(() {
-      //   _ready = true;
-      // });
     } catch (e, stack) {
       FlutterError.reportError(FlutterErrorDetails(exception: e, stack: stack));
     }
-    // print('Fetching: $urlPrefix$nextFile'); // ignore: avoid_print
-    // final HttpClientResponse client =
-    //     await (await HttpClient().getUrl(Uri.parse('$urlPrefix$nextFile')))
-    //         .close();
-    // await currentFile
-    //     .writeAsBytes(await client.expand((List<int> chunk) => chunk).toList());
-    // await settingsFile.writeAsString(nextFile);
   }
 
   readRemoteFile() async {
     try {
       final HttpClientResponse client =
-          await (await HttpClient().getUrl(Uri.parse('$urlPrefix'))).close();
+          await (await HttpClient().getUrl(Uri.parse(url))).close();
       final data = await client.expand((List<int> chunk) => chunk).toList();
 
       _runtime.update(const LibraryName(<String>['main']),
@@ -108,8 +113,8 @@ class _ExampleState extends State<Example> {
                     LibraryName(<String>['main']), 'Counter'),
                 onEvent: (String name, DynamicMap arguments) {
                   if (name == 'increment') {
-                    _counter += 1;
                     _updateData();
+                    _counter += 1;
                   }
                 },
               );
@@ -118,37 +123,8 @@ class _ExampleState extends State<Example> {
                 child: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.only(right: 100.0),
-                            child: Text('REMOTE',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(letterSpacing: 12.0))),
-                        Expanded(
-                            child: DecoratedBox(
-                                decoration: FlutterLogoDecoration(
-                                    style: FlutterLogoStyle.horizontal))),
-                        Padding(
-                            padding: EdgeInsets.only(left: 100.0),
-                            child: Text('WIDGETS',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(letterSpacing: 12.0))),
-                        Spacer(),
-                        Expanded(
-                            child: Text(
-                                'Every time this program is run, it fetches a new remote widgets library.',
-                                textAlign: TextAlign.center)),
-                        Expanded(
-                            child: Text(
-                                'The interface that it shows is whatever library was last fetched.',
-                                textAlign: TextAlign.center)),
-                        Expanded(
-                            child: Text(
-                                'Restart this application to see the new interface!',
-                                textAlign: TextAlign.center)),
-                      ],
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
                   ),
                 ),
