@@ -6,13 +6,9 @@ widget Counter = Scaffold(
   body: Center(
     child: Column(
       mainAxisAlignment: "center",
+      crossAxisAlignment: "center",
       children: [
-        Text(text: 'You have pushed the button this many times:', textAlign: "center"),
-        Text(text:'New Text widget is Added', textAlign : "center"),
-        
-        Text(text: data.counter, style: {
-          fontSize: 36.0,
-        }),
+       Text(text: "Samriddhi",)
       ],
     ),
   ),
