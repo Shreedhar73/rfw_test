@@ -12,7 +12,7 @@ widget Counter = Scaffold(
       ],
     ),
   ),
-  bottomNavigationBar: Container(
+  drawer: Container(
     color: 0xFF002211,
     height: 10.0,
     child: Center(
