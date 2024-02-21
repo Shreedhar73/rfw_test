@@ -8,13 +8,14 @@ widget Counter = Scaffold(
       mainAxisAlignment: "center",
       crossAxisAlignment: "center",
       children: [
-       Text(text: "Samriddhi",)
+       Text(text: "heeeelp",)
       ],
     ),
   ),
   bottomNavigationBar: Container(
     color: 0xFF002211,
-    height: 10.0,
+    height: 10,
+    width: 300,
     child: Center(
         child: Text(text: ["This, is a bottom nav ", ], textDirection: "ltr"),
       ),
